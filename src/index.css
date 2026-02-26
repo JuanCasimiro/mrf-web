@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-[#05070a] text-slate-50 font-sans antialiased;
+  margin: 0;
+}
+
+@theme {
+  --color-marsupial-bg: #05070a;
+  --color-marsupial-accent: #4f8cff;
+  --color-marsupial-surface: rgba(255, 255, 255, 0.05);
+  --color-marsupial-text: #f8fafc;
+  --color-marsupial-muted: #94a3b8;
+  --font-heading: "Montserrat", sans-serif;
+}
+
+@layer base {
+  h1, h2, h3, h4 {
+    @apply font-bold tracking-tight;
+    font-family: var(--font-heading);
+  }
+  
+  section {
+    @apply scroll-mt-24;
+  }
+}
+
+.glass {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10;
+}
+
+.glass-hover {
+  @apply transition-all duration-300 hover:bg-white/10 hover:border-white/20;
+}
