@@ -85,7 +85,7 @@ const Navbar = () => {
 const Hero = () => (
   <section id="inicio" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
     <div className="absolute inset-0 bg-gradient-radial from-blue-600/10 via-transparent to-transparent opacity-50" />
-    <div className="container mx-auto px-6 relative z-10">
+    <div className="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-10 items-center">
       <div className="max-w-4xl">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded text-blue-400 text-[10px] font-black tracking-[0.4em] uppercase mb-10 shadow-lg shadow-blue-950/20">
           <Zap size={14} className="fill-blue-500" /> Protocolo de Espectro Electromagnético
@@ -98,6 +98,9 @@ const Hero = () => (
           Ingeniería de alta precisión en detección pasiva y radiolocalización. 
           Protegemos lo invisible para asegurar el dominio estratégico.
         </p>
+        <div className="inline-flex items-center gap-3 mb-10 px-4 py-2 rounded border border-white/10 bg-white/5 text-[10px] font-black tracking-[0.2em] uppercase text-slate-300">
+          <span className="h-2 w-2 rounded-full bg-blue-400 animate-pulse" /> I+D DESARROLLADA EN ARGENTINA
+        </div>
         <div className="flex flex-wrap gap-6 items-center">
           <a href="#productos" className="bg-white text-black hover:bg-slate-200 px-10 py-5 rounded text-xs font-black tracking-[0.3em] transition-all uppercase flex items-center gap-3 shadow-xl">
             Catálogo Táctico <ArrowRight size={18} />
@@ -105,6 +108,23 @@ const Hero = () => (
           <a href="#ingenieria" className="glass-hover border border-white/20 text-white px-10 py-5 rounded text-xs font-black tracking-[0.3em] transition-all uppercase flex items-center gap-3">
             Servicios LAB
           </a>
+        </div>
+      </div>
+
+      <div className="hidden lg:flex justify-center">
+        <div className="glass rounded-2xl p-6 max-w-md w-full transition-transform duration-500 hover:-translate-y-1 hover:scale-[1.01]">
+          <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-900/50">
+            <img
+              src="/argentina.png"
+              alt="Referencia Argentina"
+              className="w-full h-72 object-cover opacity-85 hover:opacity-100 transition-opacity duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4">
+              <p className="text-[10px] font-black tracking-[0.25em] uppercase text-blue-300 mb-1">Base Operativa</p>
+              <p className="text-white text-sm font-bold uppercase tracking-wide">Argentina • Desarrollo local con estándares globales</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
