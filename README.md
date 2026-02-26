@@ -1,16 +1,122 @@
-# React + Vite
+# MARSUPIAL RF Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sitio institucional de MARSUPIAL RF desarrollado con React + Vite + Tailwind CSS v4.
 
-Currently, two official plugins are available:
+## Requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js 20+ (recomendado LTS)
+- npm 10+
 
-## React Compiler
+Verificación rápida:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+node -v
+npm -v
+```
 
-## Expanding the ESLint configuration
+## Instalación e inicio local
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Instalar dependencias:
+
+```bash
+npm install
+```
+
+2. Iniciar entorno de desarrollo:
+
+```bash
+npm run dev
+```
+
+3. Abrir en navegador:
+
+- `http://localhost:5173`
+
+## Build de producción
+
+Generar versión optimizada:
+
+```bash
+npm run build
+```
+
+La salida queda en la carpeta `dist/`.
+
+Probar el build localmente:
+
+```bash
+npm run preview
+```
+
+## Deploy en servidor
+
+Este proyecto es estático en producción (servir contenido de `dist/`).
+
+### Opción A: Nginx (Linux)
+
+1. Construir proyecto (`npm run build`).
+2. Copiar contenido de `dist/` a, por ejemplo, `/var/www/mrf-web`.
+3. Configurar Nginx:
+
+```nginx
+server {
+		listen 80;
+		server_name tu-dominio.com;
+
+		root /var/www/mrf-web;
+		index index.html;
+
+		location / {
+				try_files $uri $uri/ /index.html;
+		}
+}
+```
+
+4. Recargar Nginx:
+
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+### Opción B: IIS (Windows Server)
+
+1. Construir proyecto (`npm run build`).
+2. Crear un sitio en IIS apuntando a la carpeta `dist`.
+3. Habilitar fallback a `index.html` con URL Rewrite.
+
+Ejemplo de `web.config` dentro de `dist/`:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<system.webServer>
+		<rewrite>
+			<rules>
+				<rule name="SPA Fallback" stopProcessing="true">
+					<match url=".*" />
+					<conditions logicalGrouping="MatchAll">
+						<add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+						<add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+					</conditions>
+					<action type="Rewrite" url="/index.html" />
+				</rule>
+			</rules>
+		</rewrite>
+	</system.webServer>
+</configuration>
+```
+
+### Opción C: Node (rápido para staging)
+
+```bash
+npm install -g serve
+serve -s dist -l 8080
+```
+
+## Scripts disponibles
+
+- `npm run dev`: desarrollo con recarga en caliente
+- `npm run build`: build de producción
+- `npm run preview`: previsualización local del build
+- `npm run lint`: lint del proyecto
